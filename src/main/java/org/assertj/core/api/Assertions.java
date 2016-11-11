@@ -833,7 +833,7 @@ public class Assertions {
    */
   @CheckReturnValue
   public static <OBJECT> AtomicIntegerFieldUpdaterAssert<OBJECT> assertThat(AtomicIntegerFieldUpdater<OBJECT> actual) {
-    return new AtomicIntegerFieldUpdaterAssert(actual);
+    return new AtomicIntegerFieldUpdaterAssert<OBJECT>(actual);
   }
 
   /**
@@ -870,7 +870,7 @@ public class Assertions {
    */
   @CheckReturnValue
   public static <OBJECT> AtomicLongFieldUpdaterAssert<OBJECT> assertThat(AtomicLongFieldUpdater<OBJECT> actual) {
-    return new AtomicLongFieldUpdaterAssert(actual);
+    return new AtomicLongFieldUpdaterAssert<OBJECT>(actual);
   }
 
   /**
