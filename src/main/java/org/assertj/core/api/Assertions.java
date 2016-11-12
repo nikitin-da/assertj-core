@@ -795,8 +795,8 @@ public class Assertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public static AtomicBooleanAssert assertThat(AtomicBoolean actual) {
-    return new AtomicBooleanAssert(actual);
+  public static AbstractBooleanAssert<?> assertThat(AtomicBoolean actual) {
+    return new BooleanAssert(actual);
   }
 
   /**
@@ -807,8 +807,8 @@ public class Assertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public static AtomicIntegerAssert assertThat(AtomicInteger actual) {
-    return new AtomicIntegerAssert(actual);
+  public static AbstractIntegerAssert<?> assertThat(AtomicInteger actual) {
+    return new IntegerAssert(actual);
   }
 
   /**
@@ -844,8 +844,8 @@ public class Assertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public static AtomicLongAssert assertThat(AtomicLong actual) {
-    return new AtomicLongAssert(actual);
+  public static AbstractLongAssert<?> assertThat(AtomicLong actual) {
+    return new LongAssert(actual);
   }
 
   /**
@@ -882,8 +882,8 @@ public class Assertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public static <VALUE> AtomicReferenceAssert<VALUE> assertThat(AtomicReference<VALUE> actual) {
-    return new AtomicReferenceAssert<>(actual);
+  public static <VALUE> AbstractObjectAssert<?,VALUE> assertThat(AtomicReference<VALUE> actual) {
+    return assertThat(actual == null ? null: actual.get());
   }
 
   /**
