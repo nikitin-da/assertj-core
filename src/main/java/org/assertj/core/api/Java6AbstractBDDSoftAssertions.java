@@ -526,8 +526,8 @@ public class Java6AbstractBDDSoftAssertions extends AbstractSoftAssertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public AtomicIntegerArrayAssert then(AtomicIntegerArray actual) {
-    return proxy(AtomicIntegerArrayAssert.class, AtomicIntegerArray.class, actual);
+  public IntArrayAssert then(AtomicIntegerArray actual) {
+    return proxy(IntArrayAssert.class, AtomicIntegerArray.class, actual);
   }
 
   /**
@@ -563,8 +563,8 @@ public class Java6AbstractBDDSoftAssertions extends AbstractSoftAssertions {
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public AtomicLongArrayAssert then(AtomicLongArray actual) {
-    return proxy(AtomicLongArrayAssert.class, AtomicLongArray.class, actual);
+  public LongArrayAssert then(AtomicLongArray actual) {
+    return proxy(LongArrayAssert.class, AtomicLongArray.class, actual);
   }
 
   /**
@@ -602,8 +602,8 @@ public class Java6AbstractBDDSoftAssertions extends AbstractSoftAssertions {
    */
   @SuppressWarnings("unchecked")
   @CheckReturnValue
-  public <VALUE> AtomicReferenceArrayAssert<VALUE> then(AtomicReferenceArray<VALUE> actual) {
-    return proxy(AtomicReferenceArrayAssert.class, AtomicReferenceArray.class, actual);
+  public <VALUE> ObjectArrayAssert<VALUE> then(AtomicReferenceArray<VALUE> actual) {
+    return proxy(ObjectArrayAssert.class, AtomicReferenceArray.class, actual);
   }
 
   /**

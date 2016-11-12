@@ -528,8 +528,8 @@ public class Java6AbstractStandardSoftAssertions extends AbstractSoftAssertions 
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public AtomicIntegerArrayAssert assertThat(AtomicIntegerArray actual) {
-    return proxy(AtomicIntegerArrayAssert.class, AtomicIntegerArray.class, actual);
+  public IntArrayAssert assertThat(AtomicIntegerArray actual) {
+    return proxy(IntArrayAssert.class, AtomicIntegerArray.class, actual);
   }
 
   /**
@@ -566,8 +566,8 @@ public class Java6AbstractStandardSoftAssertions extends AbstractSoftAssertions 
    * @return the created assertion object.
    */
   @CheckReturnValue
-  public AtomicLongArrayAssert assertThat(AtomicLongArray actual) {
-    return proxy(AtomicLongArrayAssert.class, AtomicLongArray.class, actual);
+  public LongArrayAssert assertThat(AtomicLongArray actual) {
+    return proxy(LongArrayAssert.class, AtomicLongArray.class, actual);
   }
 
   /**
@@ -608,8 +608,8 @@ public class Java6AbstractStandardSoftAssertions extends AbstractSoftAssertions 
    */
   @SuppressWarnings("unchecked")
   @CheckReturnValue
-  public <VALUE> AtomicReferenceArrayAssert<VALUE> assertThat(AtomicReferenceArray<VALUE> actual) {
-    return proxy(AtomicReferenceArrayAssert.class, AtomicReferenceArray.class, actual);
+  public <VALUE> ObjectArrayAssert<VALUE> assertThat(AtomicReferenceArray<VALUE> actual) {
+    return proxy(ObjectArrayAssert.class, AtomicReferenceArray.class, actual);
   }
 
   /**
