@@ -20,6 +20,8 @@ import org.junit.Test;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
+import static org.assertj.core.api.Assertions.withinPercentage;
 import static org.assertj.core.api.BDDAssertions.then;
 
 public class AtomicInteger_assertions_Test {
@@ -37,10 +39,17 @@ public class AtomicInteger_assertions_Test {
   @Test
   public void should_be_able_to_use_any_int_assertions() {
     AtomicInteger actual = new AtomicInteger(123);
-    assertThat(actual).isLessThan(1234)
-                      .isGreaterThan(12)
-                      .isNotEqualTo(123);
-    then(actual).isNotEqualTo(1234);
+    assertThat(actual).hasValueLessThan(1234)
+                      .hasValueLessThanOrEqualTo(123)
+                      .hasValueLessThanOrEqualTo(1234)
+                      .hasValueGreaterThan(12)
+                      .hasValueGreaterThanOrEqualTo(123)
+                      .hasValueGreaterThanOrEqualTo(12)
+                      .hasNotValue(1234);
+    
+    then(actual).hasNotValue(1234)
+                .hasValueCloseTo(124, within(1))
+                .hasValueCloseTo(133, withinPercentage(10));
   }
 
   @Test
@@ -60,19 +69,22 @@ public class AtomicInteger_assertions_Test {
   @Test
   public void should_be_able_to_use_isPositive() {
     AtomicInteger actual = new AtomicInteger(123);
-    assertThat(actual).isPositive();
+    assertThat(actual).hasPositiveValue();
   }
 
   @Test
   public void should_be_able_to_use_isNegative() {
     AtomicInteger actual = new AtomicInteger(-123);
-    assertThat(actual).isNegative();
+    assertThat(actual).hasNegativeValue();
   }
 
   @Test
   public void should_be_able_to_use_isBetween() {
-    AtomicInteger actual = new AtomicInteger(123);
-    assertThat(actual).isBetween(99, 149);
+    AtomicInteger actual = new AtomicInteger(5);
+    assertThat(actual).hasValueBetween(4, 6);
+    assertThat(actual).hasValueBetween(4, 5);
+    assertThat(actual).hasValueBetween(5, 6);
+    assertThat(new AtomicInteger(-2)).hasValueLessThan(-1);
   }
 
 }

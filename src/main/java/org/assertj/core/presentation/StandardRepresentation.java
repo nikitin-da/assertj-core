@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 import java.util.concurrent.atomic.AtomicMarkableReference;
@@ -114,6 +115,7 @@ public class StandardRepresentation implements Representation {
     if (object instanceof Calendar) return toStringOf((Calendar) object);
     if (object instanceof Class<?>) return toStringOf((Class<?>) object);
     if (object instanceof Date) return toStringOf((Date) object);
+    if (object instanceof AtomicInteger) return toStringOf((AtomicInteger)object);
     if (object instanceof Number) return toStringOf((Number) object);
     if (object instanceof File) return toStringOf((File) object);
     if (object instanceof String) return toStringOf((String) object);
@@ -141,6 +143,10 @@ public class StandardRepresentation implements Representation {
     return number.toString();
   }
 
+  protected String toStringOf(AtomicInteger ai) {
+    return String.format("AtomicInteger(%s)", ai.get());
+  }
+  
   protected String toStringOf(Comparator<?> comparator) {
     if (!comparator.toString().contains("@")) return quote(comparator.toString());
     String comparatorSimpleClassName = comparator.getClass().getSimpleName();
