@@ -45,9 +45,9 @@ public class AtomicInteger_assertions_Test {
                       .hasValueGreaterThan(12)
                       .hasValueGreaterThanOrEqualTo(123)
                       .hasValueGreaterThanOrEqualTo(12)
-                      .hasNotValue(1234);
+                      .doesNotHaveValue(1234);
     
-    then(actual).hasNotValue(1234)
+    then(actual).doesNotHaveValue(1234)
                 .hasValueCloseTo(124, within(1))
                 .hasValueCloseTo(133, withinPercentage(10));
   }

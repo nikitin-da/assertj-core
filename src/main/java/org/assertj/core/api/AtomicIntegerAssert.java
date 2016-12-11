@@ -312,6 +312,7 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValue(int expectedValue) {
+    isNotNull();
     int actualValue = actual.get();
     if (!objects.getComparisonStrategy().areEqual(actualValue, expectedValue)) {
       throwAssertionError(shouldHaveValue(actual, expectedValue));
@@ -324,10 +325,10 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * <p>
    * Example:
    * <pre><code class='java'> // assertion will pass
-   * assertThat(new AtomicInteger(42)).hasNotValue(0);
+   * assertThat(new AtomicInteger(42)).doesNotHaveValue(0);
    *
    * // assertion will fail
-   * assertThat(new AtomicInteger(42)).hasNotValue(42);</code></pre>
+   * assertThat(new AtomicInteger(42)).doesNotHaveValue(42);</code></pre>
    * 
    * @return {@code this} assertion object.
    * @throws AssertionError if the actual atomic is {@code null}.
@@ -335,7 +336,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * 
    * @since 2.7.0 / 3.7.0
    */
-  public AtomicIntegerAssert hasNotValue(int expectedValue) {
+  public AtomicIntegerAssert doesNotHaveValue(int expectedValue) {
+    isNotNull();
     int actualValue = actual.get();
     if (objects.getComparisonStrategy().areEqual(actualValue, expectedValue)) {
       throwAssertionError(shouldNotContainValue(actual, expectedValue));
