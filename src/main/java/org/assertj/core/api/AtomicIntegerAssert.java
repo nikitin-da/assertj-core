@@ -15,18 +15,27 @@ package org.assertj.core.api;
 import static org.assertj.core.error.ShouldHaveValue.shouldHaveValue;
 import static org.assertj.core.error.ShouldNotContainValue.shouldNotContainValue;
 
+import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.assertj.core.data.Offset;
 import org.assertj.core.data.Percentage;
+import org.assertj.core.internal.Comparables;
+import org.assertj.core.internal.ComparatorBasedComparisonStrategy;
+import org.assertj.core.internal.Integers;
+import org.assertj.core.presentation.Representation;
+import org.assertj.core.util.VisibleForTesting;
 
 public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, AtomicInteger> {
 
-  private final IntegerAssert integerAssert;
+  @VisibleForTesting
+  Comparables comparables = Comparables.instance();
+
+  @VisibleForTesting
+  Integers integers = Integers.instance();
 
   public AtomicIntegerAssert(AtomicInteger actual) {
     super(actual, AtomicIntegerAssert.class);
-    this.integerAssert = new IntegerAssert(actual == null ? null : actual.get());
   }
 
   /**
@@ -53,7 +62,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueBetween(int start, int end) {
-    integerAssert.isBetween(start, end);
+    isNotNull();
+    integers.assertIsBetween(getWritableAssertionInfo(), actual.get(), start, end);
     return myself;
   }
 
@@ -77,7 +87,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueLessThan(int other) {
-    integerAssert.isLessThan(other);
+    isNotNull();
+    integers.assertLessThan(getWritableAssertionInfo(), actual.get(), other);
     return myself;
   }
 
@@ -101,10 +112,11 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueLessThanOrEqualTo(int other) {
-    integerAssert.isLessThanOrEqualTo(other);
+    isNotNull();
+    integers.assertLessThanOrEqualTo(getWritableAssertionInfo(), actual.get(), other);
     return myself;
   }
-  
+
   /**
    * Verifies that the actual atomic has a value strictly greater than the given one.
    * <p>
@@ -125,7 +137,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueGreaterThan(int other) {
-    integerAssert.isGreaterThan(other);
+    isNotNull();
+    integers.assertGreaterThan(getWritableAssertionInfo(), actual.get(), other);
     return myself;
   }
 
@@ -149,10 +162,11 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueGreaterThanOrEqualTo(int other) {
-    integerAssert.isGreaterThanOrEqualTo(other);
+    isNotNull();
+    integers.assertGreaterThanOrEqualTo(getWritableAssertionInfo(), actual.get(), other);
     return myself;
   }
-  
+
   /**
    * Verifies that the actual atomic has a positive value.
    * <p>
@@ -171,7 +185,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasPositiveValue() {
-    integerAssert.isPositive();
+    isNotNull();
+    integers.assertIsPositive(getWritableAssertionInfo(), actual.get());
     return myself;
   }
 
@@ -193,7 +208,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasNonPositiveValue() {
-    integerAssert.isNotPositive();
+    isNotNull();
+    integers.assertIsNotPositive(getWritableAssertionInfo(), actual.get());
     return myself;
   }
 
@@ -202,7 +218,7 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * <p>
    * Example:
    * <pre><code class='java'> // assertion will pass
-   * assertThat(new AtomicInteger(-42)).hasNegativeValue();;
+   * assertThat(new AtomicInteger(-42)).hasNegativeValue();
    *
    * // assertions will fail
    * assertThat(new AtomicInteger(0)).hasNegativeValue();
@@ -215,7 +231,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasNegativeValue() {
-    integerAssert.isNegative();
+    isNotNull();
+    integers.assertIsNegative(getWritableAssertionInfo(), actual.get());
     return myself;
   }
 
@@ -237,7 +254,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasNonNegativeValue() {
-    integerAssert.isNotNegative();
+    isNotNull();
+    integers.assertIsNotNegative(getWritableAssertionInfo(), actual.get());
     return myself;
   }
 
@@ -264,7 +282,8 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueCloseTo(int expected, Percentage percentage) {
-    integerAssert.isCloseTo(expected, percentage);
+    isNotNull();
+    integers.assertIsCloseToPercentage(getWritableAssertionInfo(), actual.get(), expected, percentage);
     return myself;
   }
 
@@ -291,10 +310,11 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
    * @since 2.7.0 / 3.7.0
    */
   public AtomicIntegerAssert hasValueCloseTo(int expected, Offset<Integer> offset) {
-    integerAssert.isCloseTo(expected, offset);
+    isNotNull();
+    integers.assertIsCloseTo(getWritableAssertionInfo(), actual.get(), expected, offset);
     return myself;
   }
-  
+
   /**
    * Verifies that the actual atomic has the given value.
    * <p>
@@ -319,7 +339,7 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
     }
     return myself;
   }
-  
+
   /**
    * Verifies that the actual atomic has not the given value.
    * <p>
@@ -343,5 +363,31 @@ public class AtomicIntegerAssert extends AbstractAssert<AtomicIntegerAssert, Ato
       throwAssertionError(shouldNotContainValue(actual, expectedValue));
     }
     return myself;
+  }
+
+  @Override
+  public AtomicIntegerAssert usingComparator(Comparator<? super AtomicInteger> customComparator) {
+    super.usingComparator(customComparator);
+    integers = new Integers(new ComparatorBasedComparisonStrategy(customComparator));
+    return myself;
+  }
+
+  @Override
+  public AtomicIntegerAssert usingDefaultComparator() {
+    super.usingDefaultComparator();
+    integers = Integers.instance();
+    return myself;
+  }
+
+  /**
+   * Is only effective for common assertions like {@link #isEqualTo(Object)}, as a matter of fact AtomicInteger specific assertions 
+   * get the AtomicInteger value and delegated to integer assertions, thus the object under test is not the AtomicInteger - 
+   * changing its representation does not have effect on the delegated integer assertions. 
+   * <p>
+   * {@inheritDoc}
+   */
+  @Override
+  public AtomicIntegerAssert withRepresentation(Representation representation) {
+    return super.withRepresentation(representation);
   }
 }
